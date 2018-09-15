@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>[]</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script> 
+<style>
+body
+{
+	background-color:gray;/*#6666ff;*/
+}
+.block
+{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 5px;
+	background-color:#ff5500;
+	/*border: 10px outset #ff8822;*/
+}
+.block.clicked
+{
+	background-color:#ddbb00;
+	/*border: 10px outset #ffdd22;*/
+}
+.block.dblclicked
+{
+	background-color:#8a3;
+}
+</style>
+<script>
+
+$(function(){
+	$(window).resize(setUpBlocks);
+	setUpBlocks();
+});
+
+function setUpBlocks()
+{
+	var body = $("body");
+	
+	body.empty();
+	
+	var height = $("body").innerHeight();
+	var width = $("body").innerWidth();
+	
+	var blockHeight = 60;
+	var blockWidth = 60;
+	
+	var numBlocks = (Math.floor(height / blockHeight)) * (Math.floor(width / blockWidth));
+
+	var block = $("<div class=\"block\"></div>").css("opacity", 0);
+	
+	for (var i = 0; i < numBlocks; i++)
+		body.append(block.clone());
+		
+	$(".block").mouseover(function(e)
+	{
+		$(e.target).stop(true, true).css("opacity", 1).fadeTo(5000, 0);
+	});
+	
+	$(".block").click(function(e)
+	{
+		var target = $(e.target);
+		
+		if (target.hasClass("clicked"))
+		{
+			target.removeClass("clicked");
+			target.addClass("dblclicked");
+		}
+		else if (target.hasClass("dblclicked"))
+		{
+			target.removeClass("dblclicked");
+		}
+		else
+		{
+			target.addClass("clicked");
+		}
+
+	});
+		
+}
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

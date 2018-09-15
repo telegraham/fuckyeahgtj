@@ -1,0 +1,330 @@
+body
+{
+	background-color: black;
+	padding: 0px;
+	margin: 0px;
+}
+#screen
+{
+	background-color: white;
+	height: 100%;
+	width:100%;
+	position: fixed;
+	z-index: 500;
+	opacity: .8
+}
+#skyline
+{
+	height: 100%;
+	min-height: 400px;
+}
+#water
+{
+	position:relative;
+	top:50%;
+	height:200px;
+	width:720px;
+	margin: auto;
+}
+.building
+{
+	float:left;
+	overflow: visible;
+	position: relative;
+}
+.window
+{
+	background-color: white;
+	width: 1px;
+	height: 1px;
+	position:absolute;
+}
+.reflection
+{
+	width: 10px;
+	height: 3px;
+	opacity: .025;
+	border-radius:5px;
+}
+.antenna
+{
+	width:2px;
+	height: 10px;
+	background-color: white;
+	position: relative;
+	background-image: url(antenna.gif);
+	background-position: top;
+	background-repeat: no-repeat;
+
+}
+.blinker
+{
+	width:2px;
+	height: 2px;
+	background-color: red;
+}
+.mask
+{
+	z-index: 100;
+	position: relative;
+}
+#b1
+{
+	width:20px;
+	height:20px;
+}
+#b2
+{
+	width:40px;
+	height:50px;
+}
+#b3
+{
+	width:10px;
+	height:20px;
+}
+#b4 /* sears*/
+{
+	width:30px;
+	height:120px;
+}
+#b4 .mask
+{
+
+	width:10px;
+	height: 30px;
+	bottom: 120px;
+	background-color: black;
+
+}
+#searsLeftAntenna, #searsRightAntenna
+{
+	bottom: 170px;
+	float:left;
+	height: 20px;
+	background-repeat:no-repeat;
+	
+}
+#searsLeftAntenna
+{
+	left:14px;
+	background-position: top left;
+}
+#searsRightAntenna
+{
+	left:24px;
+	background-position: top right;
+}
+#b5
+{
+	width:10px;
+	height:30px;
+}
+#b6
+{
+	width:20px;
+	height:60px;
+}
+#b7
+{
+	width:30px;
+	height:40px;
+}
+#b8
+{
+	width:30px;
+	height:60px;
+}
+#b9
+{
+	width:10px;
+	height:50px;
+}
+#b10
+{
+	width:20px;
+	height:70px;
+}
+#b11
+{
+	width:10px;
+	height:40px;
+}
+#b12
+{
+	width:40px;
+	height:60px;
+}
+#b13
+{
+	width:10px;
+	height:20px;
+}
+#b14
+{
+	width:40px;
+	height:50px;
+}
+#b15
+{
+	width:10px;
+	height:60px;
+}
+#b16
+{
+	width:10px;
+	height:40px;
+}
+#b17 /* vagina */
+{
+	width:20px;
+	height:80px;
+}
+#b17 .mask
+{
+	bottom:80px;
+}
+#b18
+{
+	width:20px;
+	height:60px;
+}
+#b19
+{
+	width:10px;
+	height:70px;
+}
+#b20
+{
+	width:20px;
+	height:50px;
+}
+#b21 /* pencil */
+{
+	width:20px;
+	height:90px;
+}
+#b21 .mask
+{
+	bottom: 90px;
+}
+#b21 .antenna
+{
+	bottom:108px;
+	left: 9px;
+	background-repeat:repeat-x;
+}
+#b22
+{
+	width:10px;
+	height:30px;
+}
+#b23 /* aon */
+{
+	width:20px;
+	height:100px;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+#b24
+{
+	width:10px;
+	height:40px;
+}
+#b25
+{
+	width:10px;
+	height:60px;
+}
+#b26 /* trump */
+{
+	width:10px;
+	height:90px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 2px;
+}
+#b27
+{
+	width:10px;
+	height:30px;
+}
+#b28
+{
+	width:20px;
+	height:60px;
+}
+#b29
+{
+	width:20px;
+	height:40px;
+}
+#b30
+{
+	width:10px;
+	height:20px;
+}
+#b31
+{
+	width:20px;
+	height:40px;
+}
+#b32
+{
+	width:10px;
+	height:30px;
+}
+#b33 /* hancock */
+{
+	width:20px;
+	height:80px;
+}
+#b33 .mask
+{
+	bottom:80px;
+}
+#hancockLeftAntenna, #hancockRightAntenna
+{
+	bottom: 150px;
+	float:left;
+	height: 20px;
+	width: 1px;
+	
+}
+#hancockLeftAntenna
+{
+	left:12px;
+}
+#hancockRightAntenna
+{
+	left:4px;
+}
+#b34
+{
+	width:10px;
+	height:30px;
+}
+#b35
+{
+	width:40px;
+	height:50px;
+}
+#b36
+{
+	width:20px;
+	height:40px;
+}
+#b37
+{
+	width:20px;
+	height:20px;
+}
+#b38
+{
+	width:20px;
+	height:60px;
+}
+#b39
+{
+	width:10px;
+	height:10px;
+}

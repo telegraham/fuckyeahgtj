@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>Hyperspace</title> 
+
+<meta name="description" content="Without precise calculations, we'd fly right through a star, bounce too close to a supernova, and that'd end your trip real quick, wouldn't it?" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
+
+<link rel="image_src" href="http://www.fuckyeahgtj.com/thumbnails/hyperspace.jpg" />
+
+<style type="text/css"> 
+body {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background-color:black;
+	}
+.star
+{
+	width: 1px;
+	height: 1px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	position: fixed;
+}
+</style> 
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+ /* <![CDATA[ */
+  
+function makeStars(settingsParam)
+{
+	var defaultSettings = 
+		{
+			colors : true,
+			speed : 10,
+			entryPct: 1,
+			showAxes : false
+		};
+		
+	var settings = {};	
+		
+	$.extend(settings, defaultSettings, settingsParam);
+ 
+	var $window = $(window)
+	var winHeight = $window.height();
+	var winWidth = $window.width();
+	
+	var div = $("<div class='star'></div>");
+	
+	var xOrigin = winWidth / 2;
+	var yOrigin = winHeight / 2
+	
+	if (settings.showAxes)
+	{
+		$(".axis").remove();	
+	
+		$('body').append($("<div class='axis' />").css({ 	
+															width : 0,
+															height : winHeight,
+															left: xOrigin - 1, //because the axis is 2px
+															top: 0,
+															border: "1px solid grey",
+															position: "fixed"
+														}));
+										
+		$('body').append($("<div class='axis' />").css({ 
+															height : 0,
+															width : winWidth,
+															top: yOrigin - 1, //because the axis is 2px
+															width: 0,
+															border: "1px solid grey",
+															position: "fixed"
+														}));
+	}
+								
+	var entryAngle = random(0, 360);
+	
+	var maxEntryRadius = Math.sqrt(Math.pow(xOrigin * settings.entryPct, 2) + Math.pow(yOrigin * settings.entryPct, 2));
+	var entryRadius = random(0, maxEntryRadius);
+	
+	//http://stackoverflow.com/questions/2912779/how-to-calculate-a-point-with-an-given-center-angle-and-radius
+	var xBegin = xOrigin + entryRadius * Math.sin(entryAngle);
+	var yBegin = yOrigin + entryRadius * Math.cos(entryAngle);
+	
+	div.css({ 
+				"top" : yBegin,
+				"left" : xBegin,
+				"background-color" : randomLightColor()
+			});
+			
+	var exitMargin = 50;
+	var reductionFactor = 1;
+			
+	var exitRadius = Math.sqrt(Math.pow(xOrigin * reductionFactor, 2) + Math.pow(yOrigin * reductionFactor, 2)) + exitMargin;  
+	var exitAngle = entryAngle;
+	
+	var xEnd = xOrigin + exitRadius * Math.sin(exitAngle);
+	var yEnd = yOrigin + exitRadius * Math.cos(exitAngle);
+	
+	var speed = 500;
+	
+	var distance = random(0, 15);
+	
+	var animationMs = speed * distance + 1000;
+	
+	var radius = distance <= 10 ? 10 - distance : 1;
+	var initOpacity = distance > 10 ? (5 - (distance - 10)) / 5 : 1;
+	
+	$('body').append(div);
+	
+	div
+		.fadeTo(0,0)
+		.fadeTo(animationMs / 4, initOpacity)
+		//.fadeTo(0, initOpacity)
+		.animate({ 
+					top :yEnd,
+					left : xEnd,
+					width: radius,
+					height: radius,
+					opacity: 1
+			}, animationMs , "easeInQuint", function () {  
+															div.remove(); 
+														});
+} 
+ 
+function randomLightColor()
+{
+	return "#" 	+ randomInteger(192, 255).toString(16)
+				+ randomInteger(192, 255).toString(16)
+				+ randomInteger(192, 255).toString(16);
+}
+function randomInteger(min, max)
+{
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+ 
+function random(min, max)
+{
+	return Math.random() * (max - min) + min;
+}
+ 
+function makeStarsLoop()
+{
+	makeStars();
+	setTimeout("makeStarsLoop()", 25);
+}
+ 
+ 
+ 
+$(makeStarsLoop);
+ 
+/* ]]> */
+</script> 
+</head> 
+<body> 
+</body> 
+</html>

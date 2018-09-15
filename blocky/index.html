@@ -1,0 +1,153 @@
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+<script>
+$(setup);
+
+function setup()
+{
+	dropping = false;
+	$(window).resize(gravity);
+	$(window).keydown(function(e) {
+		if (e.which == 40) //down
+		{
+			return startDrop();
+		}
+		else if (e.which == 38) // up
+		{
+			return popUp();
+		}
+		else if (e.which == 37) // left
+		{
+			return shift(true);
+		}
+		else if (e.which == 39) // right
+		{
+			return shift(false);
+		}
+
+	});
+	$(window).keyup(function(e) {
+		if (e.which == 40) //down
+		{
+			return stopDrop();
+		}
+
+	});
+	
+	var block = $(".block");
+	block.draggable({
+			start: function() {
+				block.stop(true, false);
+                block.removeClass("dropped");
+			},
+			stop: function() {
+				gravity();
+			},
+			containment: "body"
+		});
+	
+	gravity();
+}
+
+function gravity()
+{
+	drop(100, "easeOutBounce");
+}
+
+function drop(rate, easing)//pixels per second
+{
+	var block = $(".block");
+	
+	var top = getBlockTopWhenOnFloor(block);
+	var distanceToGo = top - stripPx(block.css("top"));
+	
+	block.animate({ "top" : top }, getMsForAnim(distanceToGo, rate), easing, function() {  block.addClass("dropped");	});
+}
+
+function startDrop()
+{
+    var block = $(".block");
+	if (!dropping && !block.hasClass("dropped"))
+	{
+		dropping = true;
+        block.stop(true, false);
+		drop(500, "easeOutBounce");
+	}
+}
+function stopDrop()
+{
+	dropping = false;
+    $(".block").stop(true, false);
+	gravity();
+}
+
+function popUp()
+{
+	var block = $(".block");
+    block.removeClass("dropped");
+    var newTop = -block.outerHeight() - 20;
+    var delta = stripPx(block.css("top")) - newTop;
+	block.stop(true, false);
+    block.removeClass("dropped");
+    block.animate({top: newTop}, getMsForAnim(delta, 5000), "linear", gravity);
+}
+
+function shift(left)
+{
+	var block = $(".block");
+    if (!block.hasClass("dropped"))
+    {
+    
+        var leftCss = block.css("left");
+	
+        var left = (leftCss == "auto" ? 0 : stripPx(leftCss)) + (left ? -100 : 100);
+	
+        block.animate({ "left" : left }, 
+                    { duration : getMsForAnim(100, 500), easing : "linear", queue : false});
+    }
+}
+
+function getBlockTopWhenOnFloor(block)
+{
+	return $("body").innerHeight() - block.outerHeight();
+}
+
+function getMsForAnim(distance, rate)
+{
+	return distance / (rate / 1000);
+}
+
+function stripPx(stringCss)
+{
+	return parseInt(stringCss.replace("px", ""));
+}
+
+
+
+</script>
+<style>
+	body
+	{
+		background-color:#5555ff;
+	}
+	.block
+	{
+		position:relative;
+		top:-150px;
+		width:80px;
+		height:80px;
+		margin:auto;
+		background-color: #F00;
+		border:20px outset #F60;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+	}
+</style>
+</head>
+<body>
+<div class="block"></div>
+
+</body>
+</html>

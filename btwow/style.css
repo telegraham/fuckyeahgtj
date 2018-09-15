@@ -1,0 +1,355 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+
+
+
+body {
+	background: #444;
+	color: #ccc;
+	font-family: Proxima Nova, Helvetica, Arial, sans-serif;
+	font-size: 1.3em;
+	height: 100%;
+}
+#descripto
+{
+	height: 17vh;
+	width:	92vw;
+	padding: 4vh 4vw;
+	text-align: center;
+
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	flex-direction: column;
+
+	justify-content: space-around;
+
+}
+#descripto h1
+{
+	color:#eee;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+#descripto p
+{
+	color:#999;
+	font-size: .9em;
+}
+
+#control-panel
+{
+	height: 75vh;
+	width:	100vw;
+
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	justify-content: space-around;
+
+	align-items: stretch;
+
+	text-align: center;
+}
+
+#control-panel .select
+{
+	background-color: #222;
+	flex:1;
+	margin: 5vh 5vw;
+
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	flex-direction: column;
+	align-items: stretch;
+}
+#control-panel .select li
+{
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	flex-direction: column;
+	justify-content: center;
+
+	flex:1;
+	transition: background .5s;
+}
+#control-panel .select li:hover
+{
+	color:#fff;
+	background: #FF8F00;
+	transition: background .5s;
+	transition: none;
+}
+#control-panel .select li.selected
+{
+	color:#fff;
+	background: #F70;
+}
+
+
+
+#standings {
+	margin: 1vh 0;
+
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	flex-direction: column;
+	-webkit-flex-direction: column;
+
+	height: 98vh;
+	overflow: hidden;
+	display: none;
+}
+#standings li.org,
+#standings li.scale {
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	 
+	-webkit-align-items: center;
+    align-items: center;
+
+    -webkit-flex: 1;
+	flex: 1;
+
+
+	/*height:8vh;*/
+	min-height: 2em;
+}
+#standings li.org { 
+	background: #555;
+}
+#standings li.org:nth-child(even)
+{
+	background: #666;
+}
+.org .name,
+#key
+{
+	width: 25%;
+}
+.org .name
+{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0 2%;
+	line-height: 2;
+}
+#key
+{
+	font-size: .8em;
+	padding: 0% 2% 1% 2%;
+
+}
+.key-item
+{
+	display: block;
+	white-space: nowrap;
+}
+.swatch
+{
+	position: relative;
+	display: inline-block;
+	height:.6em;
+	width: .6em;
+	vertical-align: baseline;
+	border-radius: .1em;
+	margin-right: .05em;
+}
+#participants .swatch
+{
+	background: rgb(255,143,0); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,143,0,1) 0%, rgba(255,119,0,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,143,0,1)), color-stop(100%,rgba(255,119,0,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,143,0,1) 0%,rgba(255,119,0,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,143,0,1) 0%,rgba(255,119,0,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,143,0,1) 0%,rgba(255,119,0,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,143,0,1) 0%,rgba(255,119,0,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8f00', endColorstr='#ff7700',GradientType=0 ); /* IE6-9 */
+}
+#registered .swatch
+{
+	background: rgb(119,136,153); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(119,136,153,1) 0%, rgba(97,122,146,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(119,136,153,1)), color-stop(100%,rgba(97,122,146,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(119,136,153,1) 0%,rgba(97,122,146,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(119,136,153,1) 0%,rgba(97,122,146,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(119,136,153,1) 0%,rgba(97,122,146,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(119,136,153,1) 0%,rgba(97,122,146,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#778899', endColorstr='#617a92',GradientType=0 ); /* IE6-9 */
+}
+.progress-bar,
+.scale-container
+{
+	width: 75%;
+	display: block;
+	position: relative;
+	-webkit-align-self:stretch;
+	align-self:stretch;
+}
+.progress-bar
+{
+	background: rgba(255, 255, 255, 0.15);
+}
+.registration,
+.participation
+{
+	height: 100%;
+	position: absolute;
+	transition: width .5s;
+}
+.participation
+{
+	background: #F70;
+}
+li.org:nth-child(even) .participation
+{
+	background: #FF8F00;
+}
+.registration
+{
+	background: #617A92;
+}
+li.org:nth-child(even) .registration
+{
+	background: #789;
+}
+.scale-container .tick
+{
+	position: absolute;
+	display: block;
+	border-left: 1px solid #777;
+	height: 100%;
+	padding-left: 1%;
+	transition:opacity 1s;
+}
+.scale-container .tick:nth-child(1)
+{
+	border-color: #bbb;
+}
+/*
+#loader
+{
+	
+
+	-webkit-animation: rotate 5s infinite linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+*/
+
+.progress-bar,
+.scale-container,
+.org .name,
+#key
+{
+	transition: width 1s;
+}
+
+@media only screen 
+and (max-width : 500px) {
+	body {
+		font-size: .9em;
+	}
+	#key
+	{
+		font-size: .9em;
+	}
+	.scale-container .tick:nth-child(1),
+	.scale-container .tick:nth-child(even)
+	{
+		opacity:0;
+	}
+	.progress-bar,
+	.scale-container
+	{
+		width: 60%;	
+		border-color: transparent;
+	}
+	.org .name,
+	#key
+	{
+		width: 40%;
+	}
+
+}
+
+

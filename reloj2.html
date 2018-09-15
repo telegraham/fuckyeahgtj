@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Reloj p&uacute;blico</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	actualizar();
+});
+
+function actualizar()
+{
+	var fecha = new Date();
+	girar($("#horas"), fecha.getHours() % 12 + fecha.getMinutes() / 60 + fecha.getSeconds() / 3600 + fecha.getMilliseconds() / 3600000, 12);
+	girar($("#minutos"), fecha.getMinutes() + fecha.getSeconds() / 60 + fecha.getMilliseconds() / 60000, 60);
+	girar($("#segundos"), fecha.getSeconds() + fecha.getMilliseconds() / 1000, 60);
+	setTimeout(actualizar, 41);
+}
+
+function girar(elemento, cantidad, total)
+{
+	var grados = (360 * cantidad * 1 / total) + 90;
+	elemento.css("-webkit-transform", "rotate(" + grados + "deg)");
+	elemento.css("-moz-transform", "rotate(" + grados + "deg)");
+	elemento.css("-ms-transform", "rotate(" + grados + "deg)");
+	elemento.css("-o-transform", "rotate(" + grados + "deg)");
+}
+
+</script>
+<style>
+body
+{
+	background-color:#eee;
+}
+#horas, #minutos, #centro
+{
+	font-size:96px;
+	font-family: Futura, Sans-Serif;
+	font-weight:bolder;
+}
+#horas, #minutos
+{
+	text-align:right;
+	margin-top:-50px;
+	-webkit-transform-origin:307px 66px;
+	-moz-transform-origin:307px 66px;
+	-ms-transform-origin:307px 66px;
+	-o-transform-origin:307px 66px;
+	margin-top:-64px;
+	margin-right:-42px;
+	width:350px;
+	text-shadow:0 0 10px #fff;
+}
+#segundos
+{
+	width:196px;
+	height:5px;
+	background-color:red;
+	-webkit-transform-origin:253px 2px;
+	-moz-transform-origin:253px 2px;
+	-ms-transform-origin:253px 2px;
+	-o-transform-origin:253px 2px;
+	margin-top:-2px;
+	margin-right:58px;
+	border-radius:2px;
+} 
+#horas, #minutos, #segundos, #centro, #borde
+{
+	right:50%;
+	top:50%;
+	display:block;
+	position:absolute;
+}
+#centro
+{
+	width:100px;
+	height:100px;
+	margin-right:-50px;
+	margin-top:-50px;
+	line-height:100px;
+	text-align:center;
+}
+div span
+{
+	visibility:hidden;
+}
+#borde
+{
+	width: 540px;
+	height: 540px;
+	margin-right: -270px;
+	margin-top: -270px;
+	background:white;
+	border-radius:500px;
+	box-shadow: 0 0 250px #fff;
+}
+</style>
+</head>
+<body>
+<div id="borde"></div>
+<div id="horas">LUJ<span>O</span></div>
+<div id="minutos">SOL<span>O</span></div>
+<div id="centro">O</div>
+<div id="segundos"></div>
+</body>
+</html>

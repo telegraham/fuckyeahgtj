@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>cacti and tacks</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<style>
+			body {
+				font-size: 5em;
+				margin: 0;
+				padding: 0;
+				line-height: 1.2em;
+				height: 100vh;
+				overflow: hidden;
+
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: wrap;
+			    justify-content: space-around;
+			    align-content: space-around;
+			    align-items: center;
+
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+
+				perspective: 1000px;
+
+				background: #fff;
+			}
+			div {
+				height: 1em;
+				width: 1em;
+				padding: .125em;
+				cursor: pointer;
+				transition: transform .25s, opacity .25s;
+				position: relative;
+			}
+			div:hover {
+				transform: scale(1.5);
+			}
+
+			div.point, div.point:hover {
+				transform: scale(.01);
+				opacity: 0;
+			}
+		</style> 
+		<script type="text/javascript">
+			
+			(function(){
+				const cactus = "&#x1F335;";
+				const tack = "&#x1F4CC;";
+				var body, $window;
+
+				function randInt(min, max) {
+					return Math.floor((Math.random() * max) + min);
+				}
+
+				function addOne() {
+					var randomBit = Math.floor((Math.random() * 2) + 1) - 1;
+					if (randomBit)
+						body.append("<div class=\"cactus\">" + cactus + "</div>")
+					else
+						body.append("<div class=\"tack\">" + tack + "</div>")
+				}
+				function removeOne(){
+					body.children().last().remove();
+				}
+				function equalize(){
+					while (body[0].scrollHeight <= $window.height()) {
+						addOne();
+					};
+					while (body[0].scrollHeight > $window.height()) {
+						removeOne();
+					};
+				}
+				$(function(){
+					body = $("body"), $window = $(window), $document = $(document);
+					equalize();
+					$window.resize(equalize);
+
+					var switchIt = function(emojus){
+						emojus.addClass("point");
+						setTimeout(function() {
+							emojus.html(emojus.hasClass("tack") ? cactus : tack);
+							emojus.toggleClass("tack cactus")
+							emojus.removeClass("point");
+							equalize();
+						}, 250);
+					}
+					$document.on("click", "div", function (){
+						switchIt($(this));
+					});
+
+					setInterval(function(){ 
+						var all = $("div")
+						switchIt(all.eq(randInt(0, all.length)))
+					}, 1000);
+
+					$("div").on("webkitAnimationIteration oanimationiteration msAnimationiteration animationiteration", function(){
+						console.log("herp");
+					});
+					$(document).delegate("div", "animationiteration", function(){
+						console.log("flerp");
+					});
+				})
+			})();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

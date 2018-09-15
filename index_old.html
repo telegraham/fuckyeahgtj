@@ -1,0 +1,235 @@
+<html> 
+ 
+	<head> 
+		<title>FuckYeahGTJ!</title> 
+	</head> 
+	<style type="text/css">
+    body
+    {
+        background-color:#fff;
+    }
+	#fygtj
+	{
+		background-image:url(fygtj.gif); 
+		background-repeat:no-repeat; 
+		background-position:top; 
+		width:699px; 
+		height:87px;
+		bottom:50%;
+		left:50%;
+		margin-bottom:0px;
+		margin-left:-350px;
+		position:fixed;
+        overflow:visible;
+	}
+	#menu
+	{
+        position: absolute;
+        margin: auto;
+		bottom: 0px;
+		font-size: 20px;
+		font-family: Helvetica, arial, sans-serif;
+        opacity: 0;
+        padding-top:10px;
+        padding-bottom:10px;
+        list-style:none;
+	}
+    #menu li
+    {
+        float:right;
+        margin:2px;
+    }
+    a
+    {
+        text-decoration:none;
+        color:#000;
+        border:5px solid #fff;
+        padding: 2px 5px 3px 5px;
+    }
+    a:hover
+    {
+        /*text-decoration:underline;*/
+        
+        border-bottom-color:#000;
+        border-right-color:#f00;
+        
+        color:#f00;
+    }
+    a:active
+    {
+        border-top-color:#000;
+        border-left-color:#f00;
+        border-bottom-color:#fff;
+        border-right-color:#fff;
+        
+        color:#f00;
+    }
+	</style>
+    <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+    var fadeRate = 150;
+    var slideRate = 100;
+    
+    $(function() {
+        var fygtj = $("#fygtj");
+       fygtj.mouseover(mouseOver);
+       fygtj.mouseout(mouseOut);
+    });
+    
+    function getMsForAnim(distance, rate) //pixels per second
+    {
+        return distance / (rate / 1000);
+    }
+    function getMsForFade(opacityDelta, rate) //percent per second
+    {
+        return (opacityDelta * 100) / (rate / 1000);
+    }
+    
+    function stripPx(stringCss)
+    {
+        return parseInt(stringCss.replace("px", ""));
+    }
+    function mouseOver()
+    {
+        var menu = $("#menu");
+        var fygtj = $("#fygtj");
+        
+        //console.log("over");
+        
+        if (fygtj.hasClass("expanded"))
+            return;
+        
+        menu.stop();
+        fygtj.stop();
+        
+        //$("#menu > li").stop();
+        
+        var menuHeight = menu.outerHeight();
+        var marginBottom = fygtj.data("omb");
+        var marginBottomCurrent = stripPx(fygtj.css("margin-bottom"));
+        var height = fygtj.data("oh");
+        
+        if (marginBottom == null || height == null)
+        {
+            console.log("setData");
+            marginBottom = marginBottomCurrent;
+            fygtj.data("omb", marginBottom);
+            height = parseInt(fygtj.css("height").replace("px", ""));
+            fygtj.data("oh", height);
+        }
+        
+        var duration = getMsForAnim(marginBottomCurrent - (marginBottom - menuHeight * .5), slideRate);
+        
+        var fadeToOpacity = 1;
+        var fadeDuration = getMsForFade(fadeToOpacity - menu.css("opacity"), fadeRate);
+        
+        fygtj.animate({ "margin-bottom" :  marginBottom - menuHeight * .5, "height" : height + menuHeight }, 
+                        { duration : duration, easing: "swing", complete : function () { menu.fadeTo(fadeDuration, fadeToOpacity); fygtj.addClass("expanded"); } });
+        
+    }
+    
+    function mouseOut(e)
+    {
+            
+        if (e.relatedTarget.id == "fygtj" || $(e.relatedTarget).parents("#fygtj").length)
+            return;    
+        
+        //console.log("out: " + e.relatedTarget);
+        var menu = $("#menu");
+        var fygtj = $("#fygtj");
+        
+        menu.stop();
+        fygtj.stop();
+        
+        fygtj.removeClass("expanded");
+        
+        //$("#menu > li").stop();
+        
+        var omb = fygtj.data("omb");
+        var oh = fygtj.data("oh");
+        
+        var duration = getMsForAnim(omb - stripPx(fygtj.css("margin-bottom")), slideRate);
+        
+        var fadeToOpacity = 0;
+        var fadeDuration = getMsForFade(menu.css("opacity") - fadeToOpacity, fadeRate);
+        
+        menu.fadeTo(fadeDuration, fadeToOpacity ,function () {
+        
+            fygtj.animate({ "margin-bottom" : omb, "height" : oh }, 
+                        { duration : duration, easing: "swing" });
+        });
+        
+    }
+    
+    function overStep(now, fx)
+    {
+        //baseStep(now, fx, true);
+    }
+    
+    function baseStep(now, fx, over)
+    {
+        var percentDone = (now - fx.start) / (fx.end - fx.start);
+        var listItems = $("#menu > li");
+        var listItemCount = listItems.length;
+        var listItemIndex = Math.ceil(percentDone * (listItemCount - 1)) * (over ? -1 : 1) + (over ? -1 : 0);
+        var listItem = listItems.filter(":gt(" + listItemIndex + ")");
+        
+        if (!listItem)
+            return;
+        
+        var targetOpacity = (over ? 1 : 0);
+
+            
+        var duration = (over ? 500 : 100);
+        
+        listItem.addClass("showing");
+        
+        listItem.fadeTo(1000, targetOpacity);
+    }
+    </script>
+	<body> 
+		<div id="fygtj">
+            <ul id="menu">
+            <li>
+                <a href="bingo/">bingo</a>
+            </li>
+            <li>
+                <a href="bubble/">bubble</a>
+            </li>
+            <li>
+                <a href="hyperspace/">hyperspace</a>
+            </li>
+            <li>
+                <a href="blocks/">blocks</a>
+            </li>
+            <li>
+                <a href="blocky/">blocky</a>
+            </li>
+            <li>
+                <a href="neon/">neon</a>
+            </li>
+            <li>
+                <a href="tetris/">tetris</a>
+            </li>
+            <li>
+                <a href="lucky/">lucky</a>
+            </li>
+            </ul>
+		</div>
+        <script type="text/javascript">
+
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-22647072-1']);
+              _gaq.push(['_trackPageview']);
+
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+
+        </script>
+	</body> 
+	
+</html>

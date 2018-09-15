@@ -1,0 +1,218 @@
+<html> 
+<head> 
+<meta name="viewport" content="width=888, user-scalable = no">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+<link rel="stylesheet" href="bingo.css" type="text/css"> 
+ 
+<script type="text/javascript"> 
+function togglePrintable(speed)
+{
+	var nonPrint = $("body").children().not(".printable");
+ 
+	if (nonPrint.is(":visible"))
+	{
+		nonPrint.fadeOut(speed);
+	}
+	else
+	{
+		nonPrint.fadeIn(speed);
+	}
+}
+ 
+function refreshTable(freeSpaceId, textAreaId, tableId)
+{
+	var squareVal= $.trim($("#" + textAreaId).val());
+	var freeSpace = $.trim($("#" + freeSpaceId).val());
+ 
+	if (freeSpace.length > 0)
+		freeSpace += "\n<br />(free space)";
+ 
+	var squareList = parseList(squareVal);
+	squareList = scrubEmpties(squareList, "&nbsp;");
+	squareList = fillTo(squareList, 25, "&nbsp;");
+	squareList = shuffle(squareList);
+ 
+	fillTable(tableId, squareList, freeSpace);
+
+	bindTdClick();
+}
+ 
+function refreshList(textArea, listId)
+{
+	var squareVal= $.trim($(textArea).val());
+	var listHtmlContents = "";
+	
+	$.each(parseList(squareVal), function(index, value)
+		{
+			listHtmlContents += "<li>" + value + "</li>"
+		});
+ 
+	$("#" + listId).empty().append(listHtmlContents);
+}
+ 
+function parseList(textAreaVal)
+{
+	if (textAreaVal.length = 0)
+		return [ ];
+	return textAreaVal.split("\n");
+}
+ 
+function fillTable(tableId, squareArray, freeSpace)
+{
+	var tableBody = $("#" + tableId).children("tbody")
+	var tableHtml = "";
+ 
+	var i=0;
+	var j=0;
+	var freeSpaceOffset = 0;
+	for (i=0; i<5; i++)
+	{
+		tableHtml += "<tr>";
+ 
+		for (j=0; j<5; j++)
+		{
+			var spaceText = "";
+			if (i == 2 && j == 2 && $.trim(freeSpace).length > 0){
+				spaceText = freeSpace;
+				freeSpaceOffset++;
+			}
+			else{
+				spaceText = squareArray[i*5 + j - freeSpaceOffset];
+			}
+ 
+			tableHtml += "<td>" + spaceText + "</td>";
+		}
+ 
+		tableHtml += "</tr>";
+	}
+	tableBody.empty();
+	tableBody.append(tableHtml);
+}
+ 
+function fillTo(list, numToFillTo, valToFillWith)
+{
+	var i=list.length;
+	for (i=list.length; i<=numToFillTo; i++)
+	{
+		list[i] = valToFillWith;
+	}
+ 
+	return list;
+}
+ 
+function scrubEmpties(list, valToFillWith)
+{
+	var i=0;
+	for (i=0; i<list.length; i++)
+	{
+		if (list[i].length == 0)
+			list[i] = valToFillWith;
+	}
+ 
+	return list;
+}
+ 
+function shuffle(o){
+ 
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+}
+
+function bindTdClick()
+{
+	$("tbody td").bind("touchstart", tdClick);
+}
+function tdClick()
+{
+	$(this).toggleClass("selected");
+}
+ 
+$(document).ready(function() {refreshTable('freeSpace', 'squarea', 'bingo')});
+ 
+</script> 
+ 
+</head> 
+<body><table id="bingo" class="printable"> 
+<thead onclick="refreshTable('freeSpace', 'squarea', 'bingo');" ondblclick="togglePrintable('slow')" > 
+<tr><th colspan="5">Kickoff BINGO</th> 
+</tr>
+</thead>
+<tbody> 
+<tr> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+</tr> 
+<tr> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+</tr> 
+<tr> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+</tr> 
+<tr> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+</tr> 
+<tr> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+	<td>&nbsp;</td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- <ol id="squarelist"></ol> --> 
+<fieldset id="controls" style="display:none;"> 
+ 
+<label for="squarea">Squares</label> 
+<textarea id="squarea">Product manager contradicts self
+Wireframes do not match verification conditions
+1.2.1.1
+Dev raises largely inconsequential concern
+Someone is overtly distracted by smartphone games
+Nobody can remember how it works in production
+QA is overcommitted
+Simon is wearing plaid
+Concern for other team cited as reason for pokering higher than everyone else
+Story likely to be dropped within first week
+Someone nods off
+CAP mentioned
+Numbering of verification conditions continues from previous story
+35+ pages of stories
+Follow or nofollow?
+Verification condition is TBD
+Vince finishes his coffee
+Story demoted to orphan task
+Orphan task carried over from previous sprint unchanged
+Orphan task is bug from previous sprint
+Task on sticky note is illegible
+Task on sticky note abbreviated to point of nonsense
+Sticky note falls off board
+Number of story points is prime
+Production bug discovered
+Wireless keyboard fails to work
+Someone fidgets with outlet post in the table
+Squeaky chair
+Discussion taken offline
+First half runs over scheduled time</textarea> 
+ 
+<label for="freeSpace">Free space</label> 
+<input type="text" id="freeSpace" value="Scope creep" />
+</fieldset> 
+ 
+</body> 
+</html> 

@@ -1,0 +1,50 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<style>
+	#container { position:absolute; bottom: 50%; width:50%; left:25%; }
+	.ui-widget-header { background:#445; border:none;}
+	.ui-widget-content {border:none; background:#ddd;}
+	.ui-corner-all {
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 2em;
+	}
+	.ui-progressbar {
+		height: 2em;
+		text-align: left;
+	}
+	.ui-progressbar .ui-progressbar-value {
+		margin: -1px;
+		height: 100%;
+	}
+	.ui-corner-left {
+		-moz-border-radius-topleft: 2em;
+		-webkit-border-top-left-radius: 2em;
+		-moz-border-radius-bottomleft: 2em;
+		-webkit-border-bottom-left-radius: 2em;
+		border-bottom-left-radius: 2em;
+		border-bottom-left-radius: 2em;
+		border-top-left-radius: 2em;
+	}
+</style>
+<script>
+	$(function() {
+		var beginning = new Date(2011, 8, 22, 18, 0, 0, 0).getTime();
+		var end = new Date(2012, 0, 20, 12, 0, 0, 0).getTime();
+		var now = new Date().getTime();
+
+		var pct = Math.round((now - beginning) / (end - beginning) * 100);
+		
+		$( "#progressbar" ).progressbar({
+			value: pct
+		});
+	});
+</script>
+</head>
+<body>
+<div id="container">
+	<div id="progressbar"></div>
+</div>
+</body>
+</html#445#445#445>

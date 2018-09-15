@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bike to Work Week standings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="Stylesheet" href="style.css" />
+    <script src="mustache.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+  	<div id="descripto">
+		<h1>Bike to Work week standings</h1>
+		<p>Please select a type of workplace and size class</p>
+	</div>
+  	<div id="control-panel">
+  		
+  		<ul id="category" name="category" class="select">
+			<li value="3">Bike Related Business</li>
+			<li value="5">Education</li>
+			<li value="1">For Profit</li>
+			<li value="4">Non profit/NGO</li>
+			<li value="2">Public Agency</li>
+		</ul>
+		<ul id="id_size" name="size" class="select">
+			<li value="1">&lt;5</li>
+			<li value="5">5-24</li>
+			<li value="25">25-99</li>
+			<li value="100">100-499</li>
+			<li value="500">500+</li>
+		</ul>
+  	</div>
+  	<ol id="standings">
+  	</ol>
+  </body>
+</html>

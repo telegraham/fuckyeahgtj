@@ -1,0 +1,161 @@
+<html>
+<head>
+<title>#B</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<style type="text/css">
+body {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background-color:black;
+}
+.alert {
+	position: fixed;
+	border-radius:500px;
+	padding: 2px 4px;
+	font-size: 1px;
+	opacity:1;
+	font-weight:900;
+	font-family: helvetica, sans-serif;
+	color: #FFFFFF;
+}
+</style>
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.1.min.js" type="text/javascript"></script> 
+<script type="text/javascript">
+
+function bubble(e)
+{
+	if (e.originalEvent.changedTouches) //iOS
+	{
+		$.each(e.originalEvent.changedTouches, function()
+		{
+			pop(this.clientX, this.clientY);
+		});
+	}
+	else
+	{
+		pop(e.clientX, e.clientY);
+	}
+
+	return false;
+}
+
+function pop (x, y)
+{
+	var body = $("body");
+	var win = $(window);
+
+	var ttc = "#" + timeToColor().toUpperCase();
+
+	
+
+	var div = $("<div class='alert'>" + ttc + "</div>");
+
+	var cssObjectPopWidth = {
+					"font-size" : "50px", 
+					"padding-top" : "15px",
+					"padding-bottom" : "15px",
+					"padding-right" : "30px",
+					"padding-left" : "30px",
+				};
+	
+	
+
+	body.append(div.hide());
+	var halfInitialWidth = div.outerWidth() / 2;
+	var halfInitialHeight = div.outerHeight() / 2;
+
+	var initialCss = 	{ 
+					top : y - halfInitialHeight,
+					left : x - halfInitialWidth,
+					"background-color" : ttc
+				};
+	
+	div.css(initialCss).show();
+
+	var clone = div.clone().css(cssObjectPopWidth).hide();
+	body.append(clone);
+	var halfFinalWidth = clone.outerWidth() / 2;
+	var halfFinalHeight = clone.outerHeight() / 2;
+	clone.remove();
+
+	var cssObjectPopIn = 	{
+				 	"opacity" : .7,
+					"top" : win.height() - (y + halfFinalHeight) + "px", 
+					"left" : win.width() - (x + halfFinalWidth) + "px"
+				};
+
+	$.extend(cssObjectPopIn, cssObjectPopWidth);
+
+	var popInCallback = function () { 
+						div.fadeOut(1000, function() { div.remove(); }); 
+					};	
+
+	var animateSettingsPopIn =	{ 	
+						duration : 5000, 
+						complete : popInCallback
+					};
+
+	div.animate(cssObjectPopIn, animateSettingsPopIn);
+};
+
+totalColors = 1536;
+
+function timeToColor()
+{
+	var colorSecond = Math.round((new Date()).getTime() / 10) % totalColors;
+	return getWeirdHexVal(1, colorSecond) + getWeirdHexVal(3, colorSecond) + getWeirdHexVal(5, colorSecond);
+}
+function getWeirdHexVal(offset, colorSecond)
+{
+	var hex = getWeirdNumberChunk(offset, colorSecond).toString(16);
+	if (hex.length == 1)
+		return "0" + hex;
+	else
+		return hex;
+}
+
+function getWeirdNumberChunk(offset, colorSecond)
+{
+	var oneSixth = totalColors / 6;
+	
+	var number = (colorSecond + (offset * oneSixth)) % totalColors;
+	
+	if (number >= 0
+		&& number < oneSixth * 2)
+		return 0;
+	else if (number >= oneSixth * 2
+		&& number < oneSixth * 3)
+		return number % oneSixth;
+	else if (number >= oneSixth * 3
+		&& number < oneSixth * 5)
+		return oneSixth - 1;
+	else if (number >= oneSixth * 5
+		&& number < totalColors)
+		return (oneSixth - (number % oneSixth + 1));
+		
+}
+
+function bindBody()
+{
+	$("body").bind("mousemove touchmove", bubble);
+}
+
+function unbindBody()
+{
+	$("body").unbind("mousemove touchmove");
+}
+
+$(document).ready(function()
+{
+	$("body").bind("mousedown touchstart", bindBody);
+	$("body").bind("mouseup touchend touchcancel", unbindBody);
+	
+	$("body").bind("mousedown touchstart", bubble);
+});
+</script>
+</head>
+<body>
+</body>

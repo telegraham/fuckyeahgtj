@@ -1,0 +1,37 @@
+
+<li class="scale">
+	<span id="key">
+		<span id="participants" class="key-item">
+			<span class="swatch">
+			</span>
+			<span class="label">
+				riders
+			</span>
+		</span>
+		<span id="registered" class="key-item">
+			<span class="swatch">
+			</span>
+			<span class="label">
+				registered
+			</span>
+		</span>
+	</span>
+	<div class="scale-container">
+		{{#ticks}}
+			<span class="tick" style="left:{{multiplicated_position}}%">{{#label}}{{label}}%{{/label}}</span>
+		{{/ticks}}
+	</div>
+</li>
+{{#contenders}}
+	<li class="org loading">
+		<span class="name">{{friendlyName}}</span>
+		<div class="progress-bar">
+			<div class="registration" style="width:{{multiplicated_registration}}%">
+			</div>
+			<div class="participation" style="width:{{multiplicated_participation}}%">
+			</div>
+		</div>
+		</span>
+	</li>
+{{/contenders}}
+
